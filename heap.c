@@ -2,12 +2,18 @@
 #include <stdio.h>
 #include <stddef.h>
 
-#include "stack.h"
+#include "heap.h"
 
 heap* heap_create(int initial_size)
 {
+    if (initial_size < 1)
+        return NULL;
     heap* h = (heap*)malloc(sizeof(heap));
+    if (h == NULL)
+        return NULL;
     h->data = (node*)malloc(sizeof(node)*initial_size);
+    if (h->data == NULL)
+        return NULL;
     h->length = initial_size;
     h->heap_size = 0;
     return h;
@@ -15,21 +21,24 @@ heap* heap_create(int initial_size)
 
 void heap_remove(heap* h)
 {
-    free(h->data);
+    if (h == NULL) 
+        return;
+    if (h->data)
+        free(h->data);
     free(h);
 }
 
 int heap_min(heap* h)
 {
     if ((h->heap_size) < 1)
-        return;
+        return 0;
     return h->data[0].value;
 }
 
 void heap_checkdown(heap* h, int parent) 
 {
-    left = (1 + parent)*2 - 1;
-    right = (1 + parent)*2;
+    int left = (1 + parent)*2 - 1;
+    int right = (1 + parent)*2;
     int least = parent;
     if (left < (h->heap_size) && ((h->data[left].key) < (h->data[parent].key)))
         least = left; 
@@ -41,18 +50,18 @@ void heap_checkdown(heap* h, int parent)
         node tmp = h->data[parent];
         h->data[parent] = h->data[least];
         h->data[least] = tmp;
-        heap_checkdown(&h, least); 
+        heap_checkdown(h, least); 
     }      
 }
 
 int heap_extract_min(heap* h)
 {
     if ((h->heap_size) < 1)
-        return;
-    min = h->data[0].value;
+        return 0;
+    int min = h->data[0].value;
     h->data[0] = h->data[(h->heap_size)-1];
     h->heap_size -= 1;
-    heap_checkdown(&h, 0);
+    heap_checkdown(h, 0);
     return min;
 }
 
@@ -60,7 +69,7 @@ void heap_checkup(heap* h, int child)
 {
     int parent;
     for (parent = (child - 1)/2; parent >= 0; child = parent, parent = (child - 1) /2) {
-        if ( h->data[parent].key > h->data[child].key] ) {
+        if ( h->data[parent].key > h->data[child].key ) {
             node tmp = h->data[parent];
             h->data[parent] = h->data[child];
             h->data[child] = tmp;
@@ -72,7 +81,7 @@ void heap_checkup(heap* h, int child)
 void heap_add(heap* h, node n)
 {
     if (h->heap_size == h->length) 
-        return 0;
+        return;
     h->data[h->heap_size] = n;
     h->heap_size += 1;
     heap_checkup(h, h->heap_size - 1);
