@@ -21,3 +21,5 @@ int heap_min(heap* heap);
 
 void heap_checkdown(heap* heap, int parent);
 
+void heap_checkup(heap* heap, int child);
+
