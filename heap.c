@@ -4,18 +4,33 @@
 
 #include "heap.h"
 
-heap* heap_create(int initial_size)
+heap* heap_create(int initial_size, HEAP_ERR *err)
 {
-    if (initial_size < 1)
+    if (initial_size < 1) {
+        fprintf(stderr, "Invalid argument: size\n");
+        if (err != NULL) 
+            *err = EINVARG;
         return NULL;
+    }
+    
     heap* h = (heap*)malloc(sizeof(heap));
-    if (h == NULL)
+
+    if (h == NULL) {
+        fprintf(stderr, "Not enough memory\n");
+        if (err != NULL) 
+            *err = EMALLOC;
         return NULL;
+    }
     h->data = (node*)malloc(sizeof(node)*initial_size);
     if (h->data == NULL) {
         free(h);
+        fprintf(stderr, "Not enough memory\n");
+        if (err != NULL) {
+            *err = EMALLOC;
+        }
         return NULL;
     }
+    *err = ESUCCESS;
     h->length = initial_size;
     h->heap_size = 0;
     return h;

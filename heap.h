@@ -9,11 +9,19 @@ typedef struct {
     int heap_size;
 } heap;
 
+typedef enum {
+	ESUCCESS = 0,
+	EMALLOC,
+	EFULL,
+	EEMPTY,
+	EINVARG
+} HEAP_ERR;
+
 void heap_add(heap* heap, node node);
 
 int heap_extract_min(heap* heap);
 
-heap* heap_create(int length);
+heap* heap_create(int length, HEAP_ERR* err);
 
 void heap_remove(heap* heap);
 

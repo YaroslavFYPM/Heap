@@ -7,19 +7,19 @@ int main()
 {
     int i = 0;
     heap* h;
-    printf("Test 1: CREATE\n");
-    if ((h = heap_create(0)) != NULL) 
-        printf("Test 1.1 failed\n");
+    HEAP_ERR err;
+    
+    h = heap_create(-1, &err);
+    if (err != EINVARG) 
+        fprintf(stdout, "Test 1.1 \tfailed\n");
     else 
-        printf("Test 1.1 passed\n");
-    if ((h = heap_create(10)) == NULL)
-        printf("Test 1.2 failed\n");
+        fprintf(stdout, "Test 1.1 \tpassed\n");
+
+    h = heap_create(10, &err);    
+    if (err != ESUCCESS)
+        fprintf(stdout, "Test 1.2 \tfailed\n");
     else 
-        printf("Test 1.2 passed\n");
-    if ((h->data) == NULL)
-        printf("Test 1.3 failed\n");
-    else 
-        printf("Test 1.3 passed\n");
+        fprintf(stdout, "Test 1.2 \tpassed\n");
 
     printf("Test 2: ADD\n");
     for (i = 10; i >= 0; --i) {
