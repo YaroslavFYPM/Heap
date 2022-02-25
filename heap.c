@@ -12,8 +12,10 @@ heap* heap_create(int initial_size)
     if (h == NULL)
         return NULL;
     h->data = (node*)malloc(sizeof(node)*initial_size);
-    if (h->data == NULL)
+    if (h->data == NULL) {
+        free(h);
         return NULL;
+    }
     h->length = initial_size;
     h->heap_size = 0;
     return h;
