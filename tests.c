@@ -18,7 +18,6 @@ int main()
         printf("Test 1.2 passed\n");
     
 
-    
     for (i = 10; i > 0; --i) {
         node n;
         n.key = i;

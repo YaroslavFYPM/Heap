@@ -8,4 +8,4 @@ tests.o: tests.c
 heap.o: heap.c
 	gcc $(FLAGS) -c heap.c -o heap.o 
 clean:
-	rm -rf tests *.o
+	rm -rf a.out tests heap *.o *.gcov *.gcda *.gcno 
