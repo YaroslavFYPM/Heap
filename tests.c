@@ -6,7 +6,19 @@
 int main()
 {
     int i = 0;
-    heap* h = heap_create(10);
+    heap* h;
+    printf("Test 1: CREATE\n");
+    if ((h = heap_create(0)) != NULL) 
+        printf("Test 1.1 failed\n");
+    else 
+        printf("Test 1.1 passed\n");
+    if ((h = heap_create(10)) == NULL)
+        printf("Test 1.2 failed\n");
+    else 
+        printf("Test 1.2 passed\n");
+    
+
+    
     for (i = 10; i > 0; --i) {
         node n;
         n.key = i;
