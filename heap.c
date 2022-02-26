@@ -63,8 +63,22 @@ int heap_min(heap* h, HEAP_ERR* err)
     return h->data[0].value;
 }
 
-void heap_checkdown(heap* h, int parent) 
-{
+void heap_checkdown(heap* h, int parent, HEAP_ERR* err) 
+{   
+    if (h == NULL) {
+        fprintf(stderr, "Invalid argument: heap\n");
+        if (err != NULL)
+            *err = EINVARG;
+        return;
+    } 
+
+    if (parent > h->heap_size) {
+        fprintf(stderr, "Invalid argument: parent\n");
+        if (err != NULL)
+            *err = EINVARG;
+        return;        
+    }
+
     int left = (1 + parent)*2 - 1;
     int right = (1 + parent)*2;
     int least = parent;
@@ -78,7 +92,7 @@ void heap_checkdown(heap* h, int parent)
         node tmp = h->data[parent];
         h->data[parent] = h->data[least];
         h->data[least] = tmp;
-        heap_checkdown(h, least); 
+        heap_checkdown(h, least, err); 
     }      
 }
 
@@ -101,12 +115,26 @@ int heap_extract_min(heap* h, HEAP_ERR* err)
     int min = h->data[0].value;
     h->data[0] = h->data[(h->heap_size)-1];
     h->heap_size -= 1;
-    heap_checkdown(h, 0);
+    heap_checkdown(h, 0, err);
     return min;
 }
 
-void heap_checkup(heap* h, int child)
+void heap_checkup(heap* h, int child, HEAP_ERR* err)
 {
+    if (h == NULL) {
+        fprintf(stderr, "Invalid argument: heap\n");
+        if (err != NULL)
+            *err = EINVARG;
+        return;
+    } 
+
+    if (child > h->heap_size) {
+        fprintf(stderr, "Invalid argument: parent\n");
+        if (err != NULL)
+            *err = EINVARG;
+        return;        
+    }    
+
     int parent;
     for (parent = (child - 1)/2; parent >= 0; child = parent, parent = (child - 1) /2) {
         if ( h->data[parent].key > h->data[child].key ) {
@@ -136,5 +164,5 @@ void heap_add(heap* h, node n, HEAP_ERR* err)
     *err = ESUCCESS;
     h->data[h->heap_size] = n;
     h->heap_size += 1;
-    heap_checkup(h, h->heap_size - 1);
+    heap_checkup(h, h->heap_size - 1, err);
 }

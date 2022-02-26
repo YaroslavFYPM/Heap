@@ -27,7 +27,7 @@ void heap_remove(heap* heap);
 
 int heap_min(heap* heap, HEAP_ERR* err);
 
-void heap_checkdown(heap* heap, int parent);
+void heap_checkdown(heap* heap, int parent, HEAP_ERR* err);
 
-void heap_checkup(heap* heap, int child);
+void heap_checkup(heap* heap, int child, HEAP_ERR* err);
 
