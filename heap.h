@@ -23,7 +23,7 @@ int heap_extract_min(heap* heap, HEAP_ERR* err);
 
 heap* heap_create(int length, HEAP_ERR* err);
 
-void heap_remove(heap* heap);
+void heap_remove(heap* heap, HEAP_ERR* err);
 
 int heap_min(heap* heap, HEAP_ERR* err);
 

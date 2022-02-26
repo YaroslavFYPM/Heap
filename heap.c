@@ -35,13 +35,18 @@ heap* heap_create(int initial_size, HEAP_ERR *err)
     return h;
 }
 
-void heap_remove(heap* h)
+void heap_remove(heap* h, HEAP_ERR* err)
 {
-    if (h == NULL) 
+    if (h == NULL) {
+        fprintf(stderr, "Not enough memory\n");
+        if (err != NULL) 
+            *err = EINVARG;
         return;
+    }
     if (h->data)
         free(h->data);
     free(h);
+    *err = ESUCCESS;
 }
 
 int heap_min(heap* h, HEAP_ERR* err)
@@ -78,7 +83,7 @@ void heap_checkdown(heap* h, int parent, HEAP_ERR* err)
             *err = EINVARG;
         return;        
     }
-
+    *err = ESUCCESS;
     int left = (1 + parent)*2 - 1;
     int right = (1 + parent)*2;
     int least = parent;
@@ -134,6 +139,7 @@ void heap_checkup(heap* h, int child, HEAP_ERR* err)
             *err = EINVARG;
         return;        
     }    
+    *err = ESUCCESS;
 
     int parent;
     for (parent = (child - 1)/2; parent >= 0; child = parent, parent = (child - 1) /2) {

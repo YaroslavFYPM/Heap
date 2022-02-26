@@ -116,11 +116,16 @@ int main()
     else 
         printf("Test 6.2\t failed\n");
 
-
-
-    printf("Test 5: REMOVE\n");
-    heap_remove(NULL);
-    heap_remove(h);
-    printf("Test 5: passed\n");
+    printf("Test 7: REMOVE\n");
+    heap_remove(NULL, &err);
+    if (err == EINVARG)
+         printf("Test 7.1\t passed\n");
+    else 
+        printf("Test 7.1\t failed\n");       
+    heap_remove(h, &err);
+    if (err == ESUCCESS)
+         printf("Test 7.2\t passed\n");
+    else 
+        printf("Test 7.2\t failed\n"); 
     return 0;
 }
