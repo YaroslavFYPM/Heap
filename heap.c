@@ -95,10 +95,22 @@ void heap_checkup(heap* h, int child)
     }
 } 
 
-void heap_add(heap* h, node n)
+void heap_add(heap* h, node n, HEAP_ERR* err)
 {
-    if (h->heap_size == h->length) 
+	if (h == NULL) {
+		fprintf(stderr, "Invalig argument: heap\n");
+		if (err != NULL)
+			*err = EINVARG;
+		return;
+	}
+
+    if (h->heap_size == h->length) {
+        fprintf(stderr, "Heap is full\n");
+        if (err != NULL) 
+            *err = EFULL;
         return;
+    }
+    *err = ESUCCESS;
     h->data[h->heap_size] = n;
     h->heap_size += 1;
     heap_checkup(h, h->heap_size - 1);

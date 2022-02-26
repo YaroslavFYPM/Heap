@@ -22,28 +22,44 @@ int main()
         fprintf(stdout, "Test 1.2 \tpassed\n");
 
     printf("Test 2: ADD\n");
-    for (i = 10; i >= 0; --i) {
+    for (i = 10; i > 0; --i) {
         node n;
+        HEAP_ERR err;
         n.key = i;
         n.value = i;
-        heap_add(h, n);
+        heap_add(h, n, &err);
+        if (err == ESUCCESS) 
+            fprintf(stdout, "Test 2.%d \tpassed\n", 11-i);
+        else
+            fprintf(stdout, "Test 2.%d \tfailed\n", 11-i);   
     }
-
-    printf("Test 2 passed\n");
+    node n;
+    n.key = 11;
+    n.value = 11;
+    heap_add(h, n, &err);
+    if (err == EFULL) 
+        fprintf(stdout, "Test 2.11 \tpassed\n");
+    else
+        fprintf(stdout, "Test 2.11 \tfailed\n");  
+    heap_add(NULL, n, &err);
+    if (err == EINVARG) 
+        fprintf(stdout, "Test 2.11 \tpassed\n");
+    else
+        fprintf(stdout, "Test 2.11 \tfailed\n");      
 
     printf("Test 3: MIN\n");
     if (heap_min(h) == 1)
-        printf("Test 3.1 passed\n");
+        fprintf(stdout, "Test 3.1 passed\n");
     else
-        printf("Test 3.1 failed\n");
+        fprintf(stdout, "Test 3.1 failed\n");
     
     printf("Test 4: EXTRACT_MIN\n");
     for (i = 1; i <= 10; ++i) {
         int tmp = heap_extract_min(h);
         if (tmp == i) 
-            printf("Test 4.%d passed\n", i);
+            fprintf(stdout, "Test 4.%d passed\n", i);
         else 
-            printf("Test 4.%d failed\n", i);
+            fprintf(stdout, "Test 4.%d failed\n", i);
     }
     
     if (heap_min(h) == 0)

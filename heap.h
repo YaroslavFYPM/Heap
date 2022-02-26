@@ -17,7 +17,7 @@ typedef enum {
 	EINVARG
 } HEAP_ERR;
 
-void heap_add(heap* heap, node node);
+void heap_add(heap* heap, node node, HEAP_ERR* err);
 
 int heap_extract_min(heap* heap);
 
