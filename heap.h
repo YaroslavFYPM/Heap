@@ -19,13 +19,13 @@ typedef enum {
 
 void heap_add(heap* heap, node node, HEAP_ERR* err);
 
-int heap_extract_min(heap* heap);
+int heap_extract_min(heap* heap, HEAP_ERR* err);
 
 heap* heap_create(int length, HEAP_ERR* err);
 
 void heap_remove(heap* heap);
 
-int heap_min(heap* heap);
+int heap_min(heap* heap, HEAP_ERR* err);
 
 void heap_checkdown(heap* heap, int parent);
 

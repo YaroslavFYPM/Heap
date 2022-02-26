@@ -25,9 +25,8 @@ heap* heap_create(int initial_size, HEAP_ERR *err)
     if (h->data == NULL) {
         free(h);
         fprintf(stderr, "Not enough memory\n");
-        if (err != NULL) {
+        if (err != NULL) 
             *err = EMALLOC;
-        }
         return NULL;
     }
     *err = ESUCCESS;
@@ -45,10 +44,22 @@ void heap_remove(heap* h)
     free(h);
 }
 
-int heap_min(heap* h)
+int heap_min(heap* h, HEAP_ERR* err)
 {
-    if ((h->heap_size) < 1)
-        return 0;
+    if (h == NULL) {
+        fprintf(stderr, "Invalid argument: heap\n");
+        if (err != NULL)
+            *err = EINVARG;
+        return __INT_MAX__;
+    }
+
+    if ((h->heap_size) < 1) {
+        fprintf(stderr, "Heap is empty\n");
+        if (err != NULL)
+            *err = EEMPTY;
+        return __INT_MAX__;
+    }
+    *err = ESUCCESS;
     return h->data[0].value;
 }
 
@@ -71,10 +82,22 @@ void heap_checkdown(heap* h, int parent)
     }      
 }
 
-int heap_extract_min(heap* h)
+int heap_extract_min(heap* h, HEAP_ERR* err)
 {
-    if ((h->heap_size) < 1)
-        return 0;
+    if (h == NULL) {
+        fprintf(stderr, "Invalid argument: heap\n");
+        if (err != NULL)
+            *err = EINVARG;
+        return __INT_MAX__;
+    }
+
+    if ((h->heap_size) < 1) {
+        fprintf(stderr, "Heap is empty\n");
+        if (err != NULL)
+            *err = EEMPTY;
+        return __INT_MAX__;
+    }
+    *err = ESUCCESS;
     int min = h->data[0].value;
     h->data[0] = h->data[(h->heap_size)-1];
     h->heap_size -= 1;
