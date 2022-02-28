@@ -1,6 +1,6 @@
 # Heap
 
-## Introdaction
+## Introduction
 
 It is realisation of the heap data structure.
 It is my first homework for the Computer Technology course, which is taught in the fourth semester at MIPT.

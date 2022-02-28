@@ -79,7 +79,7 @@ void sift_down(heap_t* heap, int parent, heap_error_t* heap_error)
         return;        
     }
 
-    int left = (1 + parent)*2 - 1;                                 //////////????
+    int left = (1 + parent)*2 - 1;             
     int right = (1 + parent)*2;        
     int least = parent;
 
@@ -109,14 +109,14 @@ int heap_extract_min(heap_t* heap, heap_error_t* heap_error)
         return 0;
     }
 
-    if ((heap->size) < 1) {                                                 //////////????
+    if ((heap->size) < 1) {                                    
         set_error(heap_error, HEAP_EMPTY, "Heap is empty\n");
         return 0;
     }
 
     int min = heap->data[0].value;
     heap->data[0] = heap->data[(heap->size)-1];
-    heap->size -= 1;                                               //////????????
+    --(heap->size);                                          
                                         
     sift_down(heap, 0, heap_error);
 
@@ -137,7 +137,7 @@ void sift_up(heap_t* heap, int child, heap_error_t* heap_error)
     }    
 
     int parent;
-    for (parent = (child - 1) / 2; parent >= 0; child = parent, parent = (child - 1) / 2) {
+    for (parent = (child - 1)/2; parent >= 0; child = parent, parent = (child - 1)/2) {
 
         if ( heap->data[parent].key > heap->data[child].key ) {
             node_t tmp = heap->data[parent];
@@ -165,7 +165,7 @@ void heap_add(heap_t* heap, node_t node, heap_error_t* heap_error)
 
     *heap_error = SUCCESS;
     heap->data[heap->size] = node;
-    heap->size += 1;
+    ++(heap->size);
 
     *heap_error = SUCCESS;
 
