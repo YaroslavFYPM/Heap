@@ -22,44 +22,44 @@ typedef enum heap_error {
 /**
  * @brief Create a heap object
  * 
- * @param capacity 
- * @param heap_error 
- * @return heap* 
+ * @param capacity Maximum number of elements in the heap
+ * @param heap_error Parameter for bug tracking
+ * @return heap* Returning a pointer to the created object
  */
 heap_t* create_heap(int capacity, heap_error_t* heap_error);
 
 /**
- * @brief 
+ * @brief Destroy a heap object
  * 
- * @param heap 
- * @param heap_error 
+ * @param heap Pointer to the object we want to destroy
+ * @param heap_error Parameter for bug tracking
  */
 void destroy_heap(heap_t* heap, heap_error_t* heap_error);
 
 /**
- * @brief 
+ * @brief Adding an element to the heap
  * 
- * @param heap 
- * @param node 
- * @param heap_error 
+ * @param heap Pointer to the object to which we want to add an element
+ * @param node The element we want to add
+ * @param heap_error Parameter for bug tracking
  */
 void heap_add(heap_t* heap, node_t node, heap_error_t* heap_error);
 
 /**
- * @brief 
+ * @brief Extracting the element with the smallest key value from the heap and finding out its value
  * 
- * @param heap 
- * @param heap_error 
- * @return int 
+ * @param heap Pointer to the object from which we want to extract the element
+ * @param heap_error Parameter for bug tracking
+ * @return int Returning the value of an element
  */
 int  heap_extract_min(heap_t* heap, heap_error_t* heap_error);
 
 /**
- * @brief 
+ * @brief Getting the value of the element with the smallest key value
  * 
- * @param heap 
- * @param heap_error 
- * @return int 
+ * @param heap Pointer to the object from which we want to get the element
+ * @param heap_error Parameter for bug tracking
+ * @return int Returning the value of an element
  */
 int  heap_get_min(heap_t* heap, heap_error_t* heap_error);
 
