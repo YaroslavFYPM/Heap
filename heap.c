@@ -67,25 +67,25 @@ int heap_get_min(heap_t* heap, heap_error_t* heap_error)
     return heap->data[0].value;
 }
 
-void sift_down(heap_t* heap, int parent, heap_error_t* heap_error) 
-{   
+void sift_down(heap_t* heap, int parent, heap_error_t* heap_error)
+{
     if (heap == NULL) {
         set_error(heap_error, INVALID_ARGUMENT, "Invalid argument: heap\n");
         return;
-    } 
+    }
 
     if (parent > heap->size) {
         set_error(heap_error, INVALID_ARGUMENT, "Invalid argument: parent\n");
-        return;        
+        return;
     }
 
-    int left = (1 + parent)*2 - 1;             
-    int right = (1 + parent)*2;        
+    int left = (1 + parent)*2 - 1;
+    int right = (1 + parent)*2;
     int least = parent;
 
     if (left < (heap->size) && ((heap->data[left].key) < (heap->data[parent].key)))
-        least = left; 
-    else 
+        least = left;
+    else
         least = parent;
 
     if (right < (heap->size) && ((heap->data[right].key) < (heap->data[least].key)))
@@ -96,28 +96,28 @@ void sift_down(heap_t* heap, int parent, heap_error_t* heap_error)
         heap->data[parent] = heap->data[least];
         heap->data[least] = tmp;
 
-        sift_down(heap, least, heap_error); 
+        sift_down(heap, least, heap_error);
     }
 
-    *heap_error = SUCCESS;      
+    *heap_error = SUCCESS;
 }
 
-int heap_extract_min(heap_t* heap, heap_error_t* heap_error) 
+int heap_extract_min(heap_t* heap, heap_error_t* heap_error)
 {
     if (heap == NULL) {
         set_error(heap_error, INVALID_ARGUMENT, "Invalid argument: heap\n");
         return 0;
     }
 
-    if ((heap->size) < 1) {                                    
+    if ((heap->size) < 1) {
         set_error(heap_error, HEAP_EMPTY, "Heap is empty\n");
         return 0;
     }
 
     int min = heap->data[0].value;
     heap->data[0] = heap->data[(heap->size)-1];
-    --(heap->size);                                          
-                                        
+    --(heap->size);
+
     sift_down(heap, 0, heap_error);
 
     *heap_error = SUCCESS;
@@ -129,12 +129,12 @@ void sift_up(heap_t* heap, int child, heap_error_t* heap_error)
     if (heap == NULL) {
         set_error(heap_error, INVALID_ARGUMENT, "Invalid argument: heap\n");
         return;
-    } 
+    }
 
     if (child > heap->size) {
         set_error(heap_error, INVALID_ARGUMENT, "Invalid argument: parent\n");
-        return;        
-    }    
+        return;
+    }
 
     int parent;
     for (parent = (child - 1)/2; parent >= 0; child = parent, parent = (child - 1)/2) {
@@ -143,13 +143,13 @@ void sift_up(heap_t* heap, int child, heap_error_t* heap_error)
             node_t tmp = heap->data[parent];
             heap->data[parent] = heap->data[child];
             heap->data[child] = tmp;
-        } else 
-            break; 
+        } else
+            break;
 
     }
 
-    heap_error = SUCCESS;
-} 
+    *heap_error = SUCCESS;
+}
 
 void heap_add(heap_t* heap, node_t node, heap_error_t* heap_error)
 {
