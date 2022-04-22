@@ -8,8 +8,5 @@ Unit test coverage 94.95%.
 
 ## Thankfulness
 
-I want to express my gratitude to my teacher Subbotina Anna Yurievna and my moral mentor Nikita Moskalev.
+I want to express my gratitude to my teacher Subbotina Anna Yurievna.
 
-## PS
-
-Google, свяжитесь со мной!
