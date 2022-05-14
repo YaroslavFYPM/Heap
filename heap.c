@@ -171,3 +171,5 @@ void heap_add(heap_t* heap, node_t node, heap_error_t* heap_error)
 
     sift_up(heap, heap->size - 1, heap_error);
 }
+
+/*fjndsfklsmfajw*/
